@@ -1,15 +1,31 @@
 package com.thoughtworks.shikhargupta.appetize;
 
-import android.content.res.Resources;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    String[] cuisines;
+    String[] cuisines = {
+            "One",
+            "two",
+            "Three"
+    };
+
+    int[] images = {
+            R.drawable.rsz_dessert_compressed,
+            R.drawable.rsz_indian_1_compressed,
+            R.drawable.rsz_italian_compressed
+    };
+
     ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,12 +33,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         listview = (ListView) findViewById(R.id.listView);
-        Resources res = getResources();
-        cuisines = res.getStringArray(R.array.Cuisines);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.list_item, R.id.listView, cuisines);
-        listview.setAdapter(arrayAdapter);
+        CuisineAdapter cuisineAdapter = new CuisineAdapter(this, cuisines, images);
+        listview.setAdapter(cuisineAdapter );
     }
 
 
@@ -49,4 +61,31 @@ public class MainActivity extends ActionBarActivity {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+}
+
+class CuisineAdapter extends ArrayAdapter<String>{
+
+
+    Context context;
+    int[] images;
+    String[] cuisineName;
+
+    public CuisineAdapter(Context context, String[] cuisineName, int[] images) {
+        super(context, R.layout.list_item, R.id.listText, cuisineName);
+        this.context = context;
+        this.images = images;
+        this.cuisineName = cuisineName;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+        View row = inflater.inflate(R.layout.list_item, parent, false);
+        ImageView listImage = (ImageView) row.findViewById(R.id.listImage);
+        TextView listText = (TextView) row.findViewById(R.id.listText);
+        listImage.setImageResource(images[position]);
+        listText.setText(cuisineName[position]);
+        return row;
+    }
 }
