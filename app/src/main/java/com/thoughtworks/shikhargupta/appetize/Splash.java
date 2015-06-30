@@ -2,8 +2,10 @@ package com.thoughtworks.shikhargupta.appetize;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
 
 public class Splash extends Activity {
@@ -16,6 +18,10 @@ public class Splash extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_splash);
+
+        TextView splashText = (TextView) findViewById(R.id.splashText);
+        Typeface pacificFont = Typeface.createFromAsset(getAssets(), "fonts/Pacifico.ttf");
+        splashText.setTypeface(pacificFont);
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
