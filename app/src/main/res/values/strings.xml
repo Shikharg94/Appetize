@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="Cuisines">
+        <item>North Indian</item>
+        <item>Chinese</item>
+        <item>Continental</item>
+        <item>Desserts</item>
+        <item>Italian</item>
+    </string-array>
 </resources>
