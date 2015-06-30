@@ -2,7 +2,8 @@
     <string name="app_name">Appetize</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="splash_text">Appetize</string>
+    <string name="action_settings"></string>
 
     <string-array name="Cuisines">
         <item>North Indian</item>
@@ -11,4 +12,5 @@
         <item>Desserts</item>
         <item>Italian</item>
     </string-array>
+    <string name="title_activity_splash">Splash</string>
 </resources>
