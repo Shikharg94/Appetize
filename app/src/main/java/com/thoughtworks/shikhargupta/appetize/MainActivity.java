@@ -1,6 +1,7 @@
 package com.thoughtworks.shikhargupta.appetize;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -14,17 +15,15 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
-    String[] cuisines = {
-            "One",
-            "two",
-            "Three"
-    };
-
     int[] images = {
-            R.drawable.rsz_dessert_compressed,
             R.drawable.rsz_indian_1_compressed,
+            R.drawable.rsz_chilly_paneer_compressed,
+            R.drawable.rsz_continental_compressed,
+            R.drawable.rsz_dessert_compressed,
             R.drawable.rsz_italian_compressed
     };
+
+    String[] cuisineStrings;
 
     ListView listview;
     @Override
@@ -32,8 +31,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Resources res = getResources();
+        cuisineStrings = res.getStringArray(R.array.Cuisines);
+
         listview = (ListView) findViewById(R.id.listView);
-        CuisineAdapter cuisineAdapter = new CuisineAdapter(this, cuisines, images);
+        CuisineAdapter cuisineAdapter = new CuisineAdapter(this, cuisineStrings, images);
         listview.setAdapter(cuisineAdapter );
     }
 
@@ -69,7 +71,6 @@ class CuisineAdapter extends ArrayAdapter<String>{
     Context context;
     int[] images;
     String[] cuisineName;
-
     public CuisineAdapter(Context context, String[] cuisineName, int[] images) {
         super(context, R.layout.list_item, R.id.listText, cuisineName);
         this.context = context;
