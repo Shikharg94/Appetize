@@ -23,8 +23,8 @@ public class RecipeFragment extends Fragment{
     Communicator communicator;
     GridView recipeGrid;
     String[][] recipes = {
-            {"Kadhai Paneer", "Dal Chawal", "Dal Makhni"},
-            {"Noodles", "Manchurian", "Chilly Paneer", "Soy Paneer"},
+            {"Kadhai Paneer", "Dosa", "Dal Makhni"},
+            {"Noodles", "Manchurian", "Chilly Paneer", "Chinese Sizzler"},
             {"Red Sauce Pasta", "White Sauce Pasta"},
             {"Brownie", "Waffles", "Custard"},
             {"Pizza"}
