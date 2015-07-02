@@ -12,5 +12,7 @@
         <item>Desserts</item>
         <item>Italian</item>
     </string-array>
-    <string name="title_activity_splash">Splash</string>
+
+    <string name="title_activity_main">Categories</string>
+    <string name="title_activity_recipe">RecipeActivity</string>
 </resources>

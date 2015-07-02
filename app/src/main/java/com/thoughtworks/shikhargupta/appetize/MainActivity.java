@@ -1,19 +1,21 @@
 package com.thoughtworks.shikhargupta.appetize;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
 
     int[] images = {
             R.drawable.rsz_indian_1_compressed,
@@ -37,9 +39,17 @@ public class MainActivity extends ActionBarActivity {
         listview = (ListView) findViewById(R.id.listView);
         CuisineAdapter cuisineAdapter = new CuisineAdapter(this, cuisineStrings, images);
         listview.setAdapter(cuisineAdapter );
+        listview.setOnItemClickListener(this);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        Intent intent = new Intent(this, RecipeActivity.class);
+        intent.putExtra("categoryIndex", position);
+        startActivity(intent);
+
+    }
 
 
 //    @Override
