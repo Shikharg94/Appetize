@@ -20,18 +20,27 @@ import java.util.ArrayList;
  */
 public class RecipeFragment extends Fragment{
 
+
     Communicator communicator;
     GridView recipeGrid;
-    String[][] recipes = {
-            {"Kadhai Paneer", "Dosa", "Dal Makhni"},
-            {"Noodles", "Manchurian", "Chilly Paneer", "Chinese Sizzler"},
-            {"Red Sauce Pasta", "White Sauce Pasta"},
-            {"Brownie", "Waffles", "Custard"},
-            {"Pizza"}
-    };
-    int[][] recipeImages = {
-            {R.drawable.}
-    }
+    int categoryIndex = 0;
+//    String[][] recipes = {
+//            {"Kadhai Paneer", "Dosa", "Dal Makhni"},
+//            {"Noodles", "Manchurian", "Chilly Paneer", "Chinese Sizzler"},
+//            {"Red Sauce Pasta", "White Sauce Pasta"},
+//            {"Brownie", "Waffles", "Custard"},
+//            {"Pizza"}
+//    };
+//
+//    int[][] recipeImages = {
+//            {R.drawable.rsz_kadhai_paneer, R.drawable.rsz_dosa, R.drawable.rsz_dal_makhani},
+//            {R.drawable.rsz_noodles, R.drawable.rsz_manchurian_new,
+//                    R.drawable.chilly_paneer_2_compressed, R.drawable.rsz_sizzler},
+//            {R.drawable.rsz_1continental_red_sauce_pasta, R.drawable.rsz_continental_white_sauce},
+//            {R.drawable.rsz_1desserts_brownie, R.drawable.rsz_desserts_waffles,
+//                    R.drawable.rsz_desserts_custard},
+//            {R.drawable.rsz_italian_pizza}
+//    };
 
     @Override
     public void onAttach(Activity activity) {
@@ -46,11 +55,15 @@ public class RecipeFragment extends Fragment{
         View view = inflater.inflate(R.layout.recipe_fragment, container, false);
 
         recipeGrid = (GridView) view.findViewById(R.id.recipeGrid);
-        int categoryIndex = communicator.respond();
-        String[] recipiesList = recipes[categoryIndex];
-//      Log.d("chi6rag", recipiesList[0]);
-
+        categoryIndex = communicator.respond();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        RecipeAdapter recipeAdapter = new RecipeAdapter(getActivity(), categoryIndex);
+        recipeGrid.setAdapter(recipeAdapter);
     }
 
     public interface Communicator {
@@ -70,17 +83,36 @@ class Recipe {
 
 class RecipeAdapter extends BaseAdapter {
 
-    Context context;
-    int[] images;
-    String[] recipeNames;
-    ArrayList<Recipe> recipeArrayList;
+    String[][] recipes = {
+            {"Kadhai Paneer", "Dosa", "Dal Makhni"},
+            {"Noodles", "Manchurian", "Chilly Paneer", "Chinese Sizzler"},
+            {"Red Sauce Pasta", "White Sauce Pasta"},
+            {"Brownie", "Waffles", "Custard"},
+            {"Pizza"}
+    };
 
-    RecipeAdapter(Context context, int[] images, String[] recipeNames){
+    int[][] recipeImages = {
+            {R.drawable.rsz_kadhai_paneer, R.drawable.rsz_dosa, R.drawable.rsz_dal_makhani},
+            {R.drawable.rsz_noodles, R.drawable.rsz_manchurian_new,
+                    R.drawable.chilly_paneer_2_compressed, R.drawable.rsz_sizzler},
+            {R.drawable.rsz_1continental_red_sauce_pasta, R.drawable.rsz_continental_white_sauce},
+            {R.drawable.rsz_1desserts_brownie, R.drawable.rsz_desserts_waffles,
+                    R.drawable.rsz_desserts_custard},
+            {R.drawable.rsz_italian_pizza}
+    };
+
+    Context context;
+    ArrayList<Recipe> recipeArrayList;
+    int categoryPosition;
+
+    RecipeAdapter(Context context, int categoryPosition){
         this.context = context;
-        this.recipeNames = recipeNames;
-        this.images = images;
-        for(int i = 0; i < recipeNames.length; i++){
-            recipeArrayList.add(i, new Recipe(images[i], recipeNames[i]) );
+        this.categoryPosition = categoryPosition;
+        this.recipeArrayList = new ArrayList<Recipe>();
+        // Add all recipes to the corresponding category
+        for(int i = 0; i < recipes[categoryPosition].length; i++){
+            recipeArrayList.add( new Recipe(recipeImages[categoryPosition][i],
+                    recipes[categoryPosition][i]) );
         }
     }
 
@@ -125,7 +157,8 @@ class RecipeAdapter extends BaseAdapter {
         else{
             holder = (ViewHolder) recipeItem.getTag();
         }
-        holder.recipeImage.setImageResource();
-        return null;
+        holder.recipeImage.setImageResource(recipeImages[categoryPosition][position]);
+        holder.recipeName.setText(recipes[categoryPosition][position]);
+        return recipeItem;
     }
 }
